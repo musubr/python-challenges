@@ -1,5 +1,5 @@
 from typing import Iterable
-from itertools import combinations
+import itertools
 
 # ------------------------------------------------------------------------------------------------------------------------------------------
 # Problem 1
@@ -48,12 +48,54 @@ def three_sum(nums: Iterable) -> Iterable:
     d = dict()
     i = 0
 
-    for combo in set(combinations(nums, 3)):
+    for combo in set(itertools.combinations(nums, 3)):
         combo = sorted(combo)
         if (sum(combo) == 0) and (combo not in d.values()):
             d[i] = combo
             i += 1
 
     return list(d.values())
+
+# ------------------------------------------------------------------------------------------------------------------------------------------
+# Problem 3
+# Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
+# Return the answer in any order.
+#
+# A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+#   1: no letters
+#   2: a, b, c
+#   3: d, e, f
+#   4: g, h, i
+#   5: j, k, l
+#   6: m, n, o
+#   7: p, q, r, s
+#   8: t, u, v
+#   9: w, x, y, z
+#   0: no letters
+
+
+def get_letter_combos_of_phone_number(digits_string: str) -> Iterable:
+    if ("1" in digits_string) or ("0" in digits_string):
+        raise(ValueError("This digit does not have any corresponding letters."))
+    else:
+        number_to_letter_mapping = {
+            "2": ["a", "b", "c"],
+            "3": ["d", "e", "f"],
+            "4": ["g", "h", "i"],
+            "5": ["j", "k", "l"],
+            "6": ["m", "n", "o"],
+            "7": ["p", "q", "r", "s"],
+            "8": ["t", "u", "v"],
+            "9": ["w", "x", "y", "z"],
+        }
+
+        possible_letters = []
+
+        for n in digits_string:
+            possible_letters += [number_to_letter_mapping[n]]
+
+        all_combinations = itertools.product(*possible_letters)
+
+        return [''.join(c) for c in all_combinations]
 
 # ------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 import pytest
-from src.algorithms.level_medium import get_longest_substring_wo_repetition, three_sum
+from src.algorithms.level_medium import get_longest_substring_wo_repetition, three_sum, get_letter_combos_of_phone_number
 
 
 class TestLevelMedium:
@@ -75,3 +75,30 @@ class TestLevelMedium:
 
         # Then
         assert output == expected_output
+
+    @pytest.mark.unit
+    @pytest.mark.parametrize(
+        "input_digit_string, expected_output",
+        [
+            ("23", ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]),
+            ("98", ['wt', 'wu', 'wv', 'xt', 'xu', 'xv', 'yt', 'yu', 'yv', 'zt', 'zu', 'zv'])
+        ]
+    )
+    def test__get_letter_combos_of_phone_number_returns_all_possible_letter_combos_for_a_given_phone_number(self, input_digit_string, expected_output):
+        # Given input digit string
+
+        # When
+        output = get_letter_combos_of_phone_number(input_digit_string)
+
+        # Then
+        assert output == expected_output
+
+    def test__get_letter_combos_of_phone_number_raises_exception_if_input_digit_contains_zero(self):
+        # Given / When / Then
+        with pytest.raises(ValueError):
+            get_letter_combos_of_phone_number("203")
+
+    def test__get_letter_combos_of_phone_number_raises_exception_if_input_digit_contains_one(self):
+        # Given / When / Then
+        with pytest.raises(ValueError):
+            get_letter_combos_of_phone_number("213")
