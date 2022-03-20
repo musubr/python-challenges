@@ -1,3 +1,6 @@
+from typing import Iterable
+from itertools import combinations
+
 # ------------------------------------------------------------------------------------------------------------------------------------------
 # Problem 1
 # Given a string s, find the length of the longest substring without repeating characters.
@@ -9,6 +12,7 @@
 # Output: 3
 # Explanation: The answer is "wke", with the length of 3.
 # Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+
 
 def get_longest_substring_wo_repetition(s: str) -> int:
     if len(s) == len(set(s)):
@@ -29,5 +33,27 @@ def get_longest_substring_wo_repetition(s: str) -> int:
                 end_index = start_index + str_length
 
         return 1
+
+# ------------------------------------------------------------------------------------------------------------------------------------------
+# Problem 2
+# Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k,
+# and nums[i] + nums[j] + nums[k] == 0. Notice that the solution set must not contain duplicate triplets.
+
+# Example
+# Input: nums = [-1,0,1,2,-1,-4]
+# Output: [[-1,-1,2],[-1,0,1]]
+
+
+def three_sum(nums: Iterable) -> Iterable:
+    d = dict()
+    i = 0
+
+    for combo in set(combinations(nums, 3)):
+        combo = sorted(combo)
+        if (sum(combo) == 0) and (combo not in d.values()):
+            d[i] = combo
+            i += 1
+
+    return list(d.values())
 
 # ------------------------------------------------------------------------------------------------------------------------------------------
