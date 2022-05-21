@@ -99,3 +99,16 @@ def get_letter_combos_of_phone_number(digits_string: str) -> Iterable:
         return [''.join(c) for c in all_combinations]
 
 # ------------------------------------------------------------------------------------------------------------------------------------------
+# Problem 4
+# An arcade game player wants to climb to the top of the leaderboard and track their ranking. The game uses Dense Ranking, so its
+# leaderboard works like this:
+#
+# The player with the highest score is ranked number 1 on the leaderboard.
+# Players who have equal scores receive the same ranking number, and the next player(s) receive the immediately following ranking number.
+
+
+def climbing_leaderboard(ranked: list, player: list) -> Iterable:
+    new_ranked = sorted(set(ranked+player), reverse=True)
+
+    return [new_ranked.index(score)+1 for score in player]
+# ------------------------------------------------------------------------------------------------------------------------------------------

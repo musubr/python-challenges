@@ -1,5 +1,6 @@
 import pytest
-from src.algorithms.level_medium import get_longest_substring_wo_repetition, three_sum, get_letter_combos_of_phone_number
+from src.algorithms.level_medium import get_longest_substring_wo_repetition, three_sum, get_letter_combos_of_phone_number, \
+    climbing_leaderboard
 
 
 class TestLevelMedium:
@@ -93,12 +94,26 @@ class TestLevelMedium:
         # Then
         assert output == expected_output
 
+    @pytest.mark.unit
     def test__get_letter_combos_of_phone_number_raises_exception_if_input_digit_contains_zero(self):
         # Given / When / Then
         with pytest.raises(ValueError):
             get_letter_combos_of_phone_number("203")
 
+    @pytest.mark.unit
     def test__get_letter_combos_of_phone_number_raises_exception_if_input_digit_contains_one(self):
         # Given / When / Then
         with pytest.raises(ValueError):
             get_letter_combos_of_phone_number("213")
+
+    @pytest.mark.unit
+    def test__climbing_leaderboard_returns_ranks_of_player_scores_using_dense_ranking(self):
+        # Given
+        existing_scores = [100, 80, 90, 80]
+        player_scores = [70, 7, 50, 90]
+
+        # When
+        output = climbing_leaderboard(existing_scores, player_scores)
+
+        # Then
+        assert output == [4, 6, 5, 2]
